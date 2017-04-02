@@ -1,0 +1,72 @@
+\documentclass{article}
+
+%\usepackage{epsfig}
+
+%\usepackage{algorithm2e}
+%\usepackage[linesnumbered]{algorithm2e}
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+\title{Merge Sort}
+%\vspace{-8ex}}
+  %\date{}
+
+\begin{document}
+\maketitle
+
+Algorithm~\ref{algo:mergesort} is a recursive algorithm to sort an input array. It uses the Algorithm~\ref{algo:merge} as a subroutine.
+Algorithm~\ref{algo:merge} merges two sorted arrays and outputs the merged array in sorted order.
+
+
+\begin{algorithm}
+\DontPrintSemicolon
+\KwIn{An array $A$ and two indices $i, j$ between which the sorting is to be done}
+\KwOut{$A$ with its entries between indices $i$ and $j$ sorted}
+\If{$i < j$}{
+	$mid \gets (i+j)/2$\;
+	Mergesort($A,i,mid$)\;
+	Mergesort($A,mid+1,j$)\;
+	Create temporarily $C[0.... j-i]$\;
+	Merge$(A[i.... mid],A[mid+1.... j],C)$\;
+	Copy $C[0....j-i] to A[i.... j]$\;
+}
+\Return{$A$}\;
+\caption{The \textbf{Mergesort} Algorithm}
+\label{algo:mergesort}
+\end{algorithm}
+
+\begin{algorithm}
+\DontPrintSemicolon
+\KwIn{Three arrays $A[0.... n-1], B[0.... m-1],C$ where $A$ and $B$ are in sorted order}
+\KwOut{Array $C$ containing all the entries of $A$ and $B$ in sorted order}
+$i \gets 0$\;
+$j \gets 0$\;
+$k \gets 0$\;
+\While{$i < n \land j < m$}{
+	\If{$A[i] < B[j]$}{
+		$C[k] \gets A[i]$\;
+		$k \gets k+1$\;
+		$i \gets i+1$\;
+	}
+	\Else{
+		$C[k] \gets B[j]$\;
+		$k \gets k+1$\;
+		$j \gets j+1$\;
+	}
+}
+\While{$i < n$}{
+	$C[k] \gets A[i]$\;
+	$k \gets k+1$\;
+	$i \gets i+1$\;		
+}
+\While{$j < m$}{
+	$C[k] \gets B[j]$\;
+	$k \gets k+1$\;
+	$j \gets j+1$\;		
+}		
+\Return{$C$}\;
+\caption{The \textbf{Merge} procedure}
+\label{algo:merge}
+\end{algorithm}
+
+\end{document}
